@@ -38,11 +38,50 @@ int _tmain(int argc, char* argv[])
         fetchNextInstruction();
         executeInstruciton();
     }
+    return 0;
 }
 
 void fetchNextInstruction()
 {
     IR = memory[PC]; //Fetch at PC
+
+    PC = PC+1;
+    if (IR && memory[0]){
+switch(IR && ){
+    case 0x00:
+        shitch(IR && ){
+            case 0:
+            break;
+                
+            case2:
+            PC=PC+1;
+            break;
+                
+            case3:
+            PC=PC+2;
+            break;
+            
+            default:
+            breack;
+}
+    break;
+
+    case 0x04:
+
+    break;
+
+    case 0x08
+    
+    break;
+    
+    case 0x0C:
+
+    break;
+
+    default:.
+    break;
+    }
+    
 }
 
 void executeInstruciton()
