@@ -1,6 +1,11 @@
 # CEC470_Project: Two-Stage Instruction Decoder
 ## This project involves designing a simple processor simulator with two key functions in C: fetchNextInstruction() and executeInstruction().
 
+### Deliverables:
+    C code for fetchNextInstruction() and executeInstruction().
+    Answer four provided questions about the instruction set and simulator features.
+
+
 ### Simulate a two-step instruction cycle: 
     Fetch: Retrieve instructions from memory using the program counter (PC).
     Execute: Perform operations based on the current instruction.
@@ -24,9 +29,3 @@
 ### Write C code for the two functions:
     fetchNextInstruction(): Fetch the next instruction and update the program counter.
     executeInstruction(): Decode and execute the current instruction.
-
-### Answer four provided questions about the instruction set and simulator features.
-
-### Deliverables:
-    C code for fetchNextInstruction() and executeInstruction().
-    Answers to the four questions.
