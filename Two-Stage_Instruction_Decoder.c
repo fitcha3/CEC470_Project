@@ -53,29 +53,70 @@ switch(IR && ){
             case 0:
             break;
                 
-            case2:
+            case 2:
             PC=PC+1;
             break;
                 
-            case3:
-            PC=PC+2;
+            case3 :
+            PC = PC + 2;
             break;
             
             default:
-            breack;
+            break;
 }
     break;
 
     case 0x04:
-
+switch(IR & 0x03){ 
+			case 0: 
+			break;
+			case 1:
+			break;
+			case 2:
+			PC = PC + 2;
+			break;
+			case 3: 
+			PC= PC + 2;
+			break;
+			default:
+			break;
+				}
     break;
 
-    case 0x08
-    
+    case 0x08:
+    switch(IR & 0x03){
+				case 0:
+				break;
+				case 1:	
+                break;
+				case 2:
+				PC = PC + 1;
+				break;
+				case 3:
+				PC = PC + 2;
+				break;
+				default:
+				break;
+				}
     break;
     
     case 0x0C:
-
+switch(IR & 0x03){ 
+			case 0:
+	    	PC = PC + 2;
+			break;
+			case 1:
+			PC = PC + 2;
+			break;
+			case 2:
+			PC = PC + 3;
+			break;
+			case 3:
+			PC = PC + 4;
+			break;
+			default:
+            break;
+			}
     break;
 
     default:.
