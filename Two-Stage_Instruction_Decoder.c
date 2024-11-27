@@ -8,6 +8,7 @@ unsigned char ACC=0;
 unsigned char IR=0;
 unsigned int MAR=0;
 unsigned int PC=0;
+unsigned int Last_PC;
 
 int _tmain(int argc, char* argv[])
 {
@@ -44,10 +45,10 @@ int _tmain(int argc, char* argv[])
 void fetchNextInstruction()
 {
     IR = memory[PC]; //Fetch at PC
-
+    Last_PC = PC;
     PC = PC+1;
     if (IR && memory[0]){
-switch(IR && ){
+switch(IR && 0x0C){
     case 0x00:
         shitch(IR && ){
             case 0:
@@ -85,18 +86,22 @@ switch(IR & 0x03){
 
     case 0x08:
     switch(IR & 0x03){
-				case 0:
-				break;
-				case 1:	
-                break;
-				case 2:
-				PC = PC + 1;
-				break;
-				case 3:
-				PC = PC + 2;
-				break;
-				default:
-				break;
+	case 0:
+	break;
+	    
+	case 1:	
+        break;
+	    
+	case 2:
+	PC = PC + 1;
+	break;
+	    
+	case 3:
+	PC = PC + 2;
+	break;
+	    
+	default:
+	break;
 				}
     break;
     
@@ -105,27 +110,62 @@ switch(IR & 0x03){
 			case 0:
 	    	PC = PC + 2;
 			break;
+	
 			case 1:
 			PC = PC + 2;
 			break;
+	
 			case 2:
 			PC = PC + 3;
 			break;
+	
 			case 3:
 			PC = PC + 4;
 			break;
-			default:
-            break;
+	
+	 default:
+         break;
 			}
     break;
 
     default:.
     break;
     }
-    
+    else if((IR & 0xf0) == 0){ 
+	switch(IR & 0x7){
+	case 0: 
+	PC = PC + 2;
+	break;
+		
+	case 1:
+	PC = PC + 1;
+	break;
+		
+	case 2:
+	break;
+		
+	case 4:
+	PC = PC + 2;
+	break;
+		
+	case 5:
+	PC = PC + 2;
+	break;
+		
+	case 6:
+	break;
+		
+	default:
+	break;
+		}
+	}
 }
 
 void executeInstruciton()
 {
+int location;
+int destination;
+int source;
 
+	
 }
