@@ -3,10 +3,10 @@
  * Computer Architecture
  * 
  * Author: 
+ * Jonathan Legro
  * Adam P. Fitch
  * Michael Harrison
- * Jonathan Legro
- *
+ * 
  * Date: 
  * November 30, 2024
  * 
@@ -79,11 +79,11 @@ void fetchNextInstruction()
 	{
 		switch (IR & 0x0C)
 		{
-		case 0x00:
+		case 0x00://Branch unconditionally
 			PC += (IR & 0x03);
 			break;
 
-		case 0x04:
+		case 0x04://Branch if ACC is positive
 			switch (IR & 0x03)
 			{
 			case 0:
@@ -99,7 +99,7 @@ void fetchNextInstruction()
 			}
 			break;
 
-		case 0x08:
+		case 0x08://Branch if ACC is negative
 			switch (IR & 0x03)
 			{
 			case 0:
@@ -120,7 +120,7 @@ void fetchNextInstruction()
 			}
 			break;
 
-		case 0x0C:
+		case 0x0C://Branch if ACC is zero
             switch (IR & 0x03)
             {
             case 0:
@@ -159,21 +159,21 @@ void fetchNextInstruction()
             case 9:
             case 12:
             case 13:
-                PC += 2;
+                PC += 2;//2 byte instruction
                 break;
 
             case 2:
             case 6:
             case 10:
             case 14:
-                PC += 3;
+                PC += 3;//3 byte instruction
                 break;
 
             case 3:
             case 7:
             case 11:
             case 15:
-                PC += 4;
+                PC += 4;//4 byte instruction
                 break;
 
             default:
@@ -183,16 +183,16 @@ void fetchNextInstruction()
 		}
 		else //Register operation
 		{
-            switch (IR & 0x7)
+            switch (IR & 0x7)//7 is the mask for the register operation
             {
             case 0:
             case 4:
             case 5:
-                PC += 2;
+                PC += 2;//2 byte instruction
                 break;
 
             case 1:
-                PC += 1;
+                PC += 1;//1 byte instruction
                 break;
 
             case 2:
@@ -209,8 +209,8 @@ void fetchNextInstruction()
 
 void executeInstruction()
 {
-    unsigned char opcode = IR & 0xF0;
-    unsigned char operand = IR & 0x0F;
+    unsigned char opcode = IR & 0xF0;//Mask for the opcode
+    unsigned char operand = IR & 0x0F;//Mask for the operand
 
     switch (opcode)
     {
