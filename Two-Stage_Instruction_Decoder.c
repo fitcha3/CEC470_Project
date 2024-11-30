@@ -2,11 +2,11 @@
  * CEC 470: 
  * Computer Architecture
  * 
- * Author: 
- * Jonathan Legro
+ * Author(s): 
  * Adam P. Fitch
  * Michael Harrison
- * 
+ * Jonathan Legro
+ *
  * Date: 
  * November 30, 2024
  * 
