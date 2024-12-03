@@ -168,7 +168,7 @@ void fetchNextInstruction(){
     PC += 2;
   }
 
-  operand = PC - temp - 1;
+  operand = PC - oldPC- 1;
   PC &= 0xffff;
 }
 
@@ -215,14 +215,15 @@ void executeInstruction(){
           src =  ((memory[oldPC + 1] << 8) + memory[oldPC + 2]);
         }else{
           src = memory[((memory[oldPC + 1] << 8) + memory[oldPC + 2])];
+        }
         break;
       default:
         break;
     }
-    
+
     switch(IR & 0x70){
       case 0x00:
-        dest = &= src;
+        dest &= src;
         break;
       case 0x10:
         dest |= src;
@@ -270,10 +271,12 @@ void executeInstruction(){
       if((IR & 0x04) == 0){
         switch(IR & 0x03){
           case 0:
+            memory[((memory[oldPC + 1] << 8) + memory[oldPC +2])] = ACC;
             break;
           case 1:
             break;
           case 2:
+            memory[MAR] = ACC;
             break;
           default:
             break;
@@ -281,10 +284,14 @@ void executeInstruction(){
       }else{
         switch(IR & 0x03){
           case 0:
+            memory[((memory[oldPC + 1] << 8) + memory[oldPC + 2])] = (MAR >> 8) & 0xff;
+            memory[((memory[oldPC + 1] << 8) + memory[oldPC + 2]) + 1] = MAR & 0xff;
             break;
           case 1:
             break;
           case 2:
+            memory[MAR] = (MAR >> 8) & 0xff;
+            memory[MAR + 1] = MAR & 0xff;
             break;
           default:
             break;
@@ -294,10 +301,13 @@ void executeInstruction(){
       if((IR & 0x04) == 0){
         switch(IR & 0x03){
           case 0:
+            ACC = memory[((memory[oldPC + 1] << 8) + memory[oldPC + 2])];
             break;
           case 1:
+            ACC = memory[oldPC + 1];
             break;
           case 2:
+            ACC = memory[MAR];
             break;
           default:
             break;
@@ -308,12 +318,19 @@ void executeInstruction(){
 
         switch(IR & 0x03){
           case 0:
+            MAR = memory[((memory[oldPC + 1] << 8) + memory[oldPC + 2])];
+						MAR <<= 8;
+						MAR += memory[((memory[oldPC + 1] << 8) + memory[oldPC + 2]) + 1];
             break;
           case 1:
+						MAR = memory[oldPC + 1];
+						MAR <<= 8;
+						MAR += memory[oldPC + 2];
             break;
           case 2:
-            break;
-          case 3:
+            MAR = memory[temp];
+						MAR <<= 8;
+						MAR += memory[temp + 1];
             break;
           default:
             break;
@@ -325,18 +342,37 @@ void executeInstruction(){
 
     switch(IR & 0x07){
       case 0:
+        PC = address;
         break;
       case 1:
+        if(ACC == 0){
+          PC = addr;
+        }
         break;
       case 2:
+        if(ACC != 0){
+          PC = address;
+        }
         break;
       case 3:
+        if((ACC & ox80) != 0){
+          PC = addr;
+        }
         break;
       case 4:
+        if(((ACC & 0x80) != 0) || (ACC == 0)){
+          PC = addr;
+        }
         break;
       case 5:
+        if(((ACC &0x80) == 0) || (ACC == 0)){
+          PC = addr;
+        }
         break;
       case 6:
+        if((ACC & 0x80) == 0){
+          PC = addr;
+        }
         break;
       default:
         break;
