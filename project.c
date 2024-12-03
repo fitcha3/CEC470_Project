@@ -6,7 +6,7 @@
 #include <string.h>
 
 #define MEMORY_SIZE 65536
-#define HALT_OPCODE 0x19
+#define HALT 0x19
 #define NOP 0x18
 
 void fetchNextInstruction();
@@ -47,7 +47,7 @@ int main(){
   }
   fclose(memory_read);
 
-  while(PC < MEMORY_SIZE && memory[PC] != 0x19){
+  while(PC < MEMORY_SIZE && memory[PC] != HALT){
     fetchNextInstruction();
     executeInstruction();
   }
@@ -379,7 +379,7 @@ void executeInstruction(){
   }else{
     if(IR == NOP){
      //do nothing
-    }else if(IR == HALT_OPCODE){
+    }else if(IR == HALT){
       return;
     }
   }
