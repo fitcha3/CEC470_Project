@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <string.h>
-#include <stdint.h>
 
 #define MEMORY_SIZE 65536
 #define HALT_OPCODE 0x19
@@ -13,12 +12,12 @@
 void fetchNextInstruction();
 void executeInstruction();
 
-uint16_t PC = 0;   // Program Counter
-uint16_t MAR = 0;  // Memory Address Register
-uint16_t operand = 0;
-uint16_t oldPC;    // Old Program Counter 
-uint8_t IR = 0;    // Instruction Register
-uint8_t ACC = 0;   // Accumulator
+unsigned int PC = 0;   // Program Counter
+unsigned int MAR = 0;  // Memory Address Register
+unsigned int operand = 0;
+unsigned int oldPC;    // Old Program Counter 
+unsigned int IR = 0;    // Instruction Register
+unsigned int ACC = 0;   // Accumulator
 
 
 
@@ -342,7 +341,7 @@ void executeInstruction(){
 
     switch(IR & 0x07){
       case 0:
-        PC = address;
+        PC = addr;
         break;
       case 1:
         if(ACC == 0){
@@ -351,11 +350,11 @@ void executeInstruction(){
         break;
       case 2:
         if(ACC != 0){
-          PC = address;
+          PC = addr;
         }
         break;
       case 3:
-        if((ACC & ox80) != 0){
+        if((ACC & 0x80) != 0){
           PC = addr;
         }
         break;
