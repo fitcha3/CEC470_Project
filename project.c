@@ -24,47 +24,12 @@ unsigned int ACC = 0;   // Accumulator
 uint8_t memory[MEMORY_SIZE] = {0};
 
 int main(){
-  char hex_line[256];
-  int i = 0;
-
-  FILE *memory_read = fopen("memory_in.txt", "r");
-  if(memory_read == NULL){
-    perror("Faild to open memory_in.txt");
-    return EXIT_FAILURE;
-  }
-
-  while(fgets(hex_line, sizeof(hex_line), memory_read) != NULL){
-    char *token = strtok(hex_line, " ");
-    while(token != NULL){
-      unsigned int hex_value;
-      sscanf(token, "%x", &hex_value);
-      if(i < MEMORY_SIZE){
-        memory[i++] = (uint8_t)hex_value;
-      }
-      
-      token = strtok(NULL, " ");
-    }
-  }
-  fclose(memory_read);
-
+  
   while(PC < MEMORY_SIZE && memory[PC] != HALT){
     fetchNextInstruction();
     executeInstruction();
   }
 
-  FILE *file_output = fopen("memory_out.txt", "w");
-  if(file_output == NULL){
-    perror("failed to open memory_out.txt");
-    return EXIT_FAILURE;
-  }
-  
-  for(unsigned int i = 0; i < MEMORY_SIZE;){
-    for(int j = 0; j < 16 && i < MEMORY_SIZE; j++){
-      fprintf(file_output, "%02x ", memory[i++]);
-    }
-    fprintf(file_output, "\n");
-  }
-  
   return 0;
 }
 
