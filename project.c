@@ -145,7 +145,7 @@ void fetchNextInstruction(){
         break;
     }
   }else if((IR & 0xf0)== 0){
-    switch(IR & 0x7){
+    switch(IR & 0x07){
       case 0:
         PC += 2;
         break;
